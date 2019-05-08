@@ -46,22 +46,6 @@ public class Lobby {
     }
 
     /**
-     * Initialise the players for all users in lobby
-     */
-    private void initPlayers() {
-        game.initPlayers();
-    }
-
-    /**
-     * Sends the randomly placed flags to all players.
-     */
-    private void sendFlags() {
-        FlagsPacket data = new FlagsPacket(game.getFlags());
-        Packet packet = new Packet(FromServer.SEND_FLAGS.ordinal(), data);
-        broadcastPacket(packet);
-    }
-
-    /**
      * Start the 5 second countdown to game start
      *
      * @param user the user telling the game to start
@@ -85,7 +69,6 @@ public class Lobby {
         StateChangePacket stateChangePacket = new StateChangePacket(StateChange.GAME_START);
         Packet pkt = new Packet(id, stateChangePacket);
         broadcastPacket(pkt);
-        game.dealFirstHand();
     }
 
     /**
@@ -104,11 +87,9 @@ public class Lobby {
                 break;
             case 2:
                 broadcastChatMessage("[#FFFFFF]Game starting in [#FF0000]3...");
-                initPlayers();
                 break;
             case 3:
                 broadcastChatMessage("[#FFFFFF]Game starting in [#FF0000]2...");
-                sendFlags();
                 break;
             case 4:
                 broadcastChatMessage("[#FFFFFF]Game starting in [#FF0000]1...");
@@ -377,35 +358,6 @@ public class Lobby {
                 users[slot].leaveLobby();
 
             }
-        }
-
-    }
-
-    public void kickArtificial(User actionUser) {
-        if (actionUser == host) {
-            for (int i = users.length - 1; i > 0; i--) {
-                if (users[i] != null) {
-                    if (users[i].getChannel() == null) {
-                        actionUser.sendServerMessage("Kicking AI: " + users[i].getName());
-                        users[i].leaveLobby();
-                        this.artificialCount--;
-                        return;
-                    }
-                }
-            }
-            actionUser.sendServerMessage("Could not find any AI to kick.");
-        }
-    }
-
-    public void addArtificial(User actionUser) {
-        if (actionUser == host) {
-            User user = new User(
-                    UUID.randomUUID().toString(),
-                    "Computer-" + UUID.randomUUID().toString().substring(0, 5),
-                    "cpu",
-                    null);
-            user.joinLobby(gwi, getName());
-            this.artificialCount++;
         }
 
     }

@@ -75,20 +75,6 @@ public class IncomingPacketHandler {
                     }
                 }
                 break;
-            case CARD_PACKET:
-                CardPacket cardPacket = CardPacket.parseJSON(jsonObject);
-                User cardUser = handler.getEntityFromLoggedIn(incoming);
-                //cardUser.getPlayer().storeBurntCard(Tools.CARD_RECONSTRUCTOR.reconstructCard(cardPacket.getPriority()));
-                break;
-            case CARD_HAND_PACKET:
-                User cardHandUser = handler.getEntityFromLoggedIn(incoming);
-                int[] packetData = CardHandPacket.parseJSON(jsonObject).getHand();
-                Card[] hand = new Card[packetData.length];
-                for (int i = 0; i < hand.length; i++) {
-                    hand[i] = Tools.CARD_RECONSTRUCTOR.reconstructCard(packetData[i]);
-                }
-                cardHandUser.getPlayer().storeSelectedCards(hand);
-                break;
             case CREATE_LOBBY:
                 User actionUser = handler.getEntityFromLoggedIn(incoming);
                 CreateLobbyPacket lobbyPacket = CreateLobbyPacket.parseJSON(jsonObject);
@@ -145,61 +131,18 @@ public class IncomingPacketHandler {
                     messagingUser.getLobby().kickByName(command[1], messagingUser);
                 }
                 break;
-            case "addcomp":
-            case "addcpu":
-            case "addai":
-            case "add_ai":
-                if (command.length == 2) {
-                    if(StringUtilities.isStringInt(command[1])){
-                        for (int i = 0; i < Integer.parseInt(command[1]); i++) {
-                            messagingUser.getLobby().addArtificial(messagingUser);
-
-                        }
-
-                    }
-                } else {
-                    messagingUser.getLobby().addArtificial(messagingUser);
-
-                }
-
-                break;
-            case "kickai":
-            case "kickcpu":
-                messagingUser.getLobby().kickArtificial(messagingUser);
-                break;
-            case "gethit":
-                messagingUser.getPlayer().getHit();
-                break;
-            case "restorebackup":
-                messagingUser.getPlayer().restoreBackup();
-                break;
             case "move":
                 if (command.length > 2) {
                     if (Direction.fromString(command[1].toUpperCase()) != null) {
                         Direction direction = Direction.valueOf(command[1].toUpperCase());
                         if (StringUtilities.isStringInt(command[2])) {
-                            messagingUser.sendServerMessage("You moved " + command[2] + " tiles.");
+                            messagingUser.sendServerMessage("You sent command to move " + command[2] + " tiles.");
                             messagingUser.getPlayer().startMovement(direction, Integer.parseInt(command[2]), false);
                             return;
                         }
                     }
                 }
                 messagingUser.sendServerMessage("Error in command, proper usage: '!move north 3'.");
-
-                break;
-            case "card":
-                if (command.length > 1) {
-                    if (CardType.fromString(command[1].toUpperCase()) != null) {
-                        CardType cardType = CardType.valueOf(command[1].toUpperCase());
-                        Card card = new Card(999, cardType);
-                        messagingUser.getLobby().getGame().handleMovement(messagingUser.getPlayer(), card);
-                        return;
-                    }
-                }
-                messagingUser.sendServerMessage("Error in command, proper usage: '!card rotateleft'.");
-                messagingUser.sendServerMessage("Available cards: rotateleft, rotateright, rotate180");
-                messagingUser.sendServerMessage("forward1, forward2, forward3, backward1");
-
                 break;
             case "whisper":
             case "w":

@@ -7,7 +7,6 @@ import inf112.skeleton.common.specs.TileDefinition;
 import inf112.skeleton.common.utility.Tools;
 import inf112.skeleton.server.WorldMap.entity.Player;
 import inf112.skeleton.server.WorldMap.entity.TileEntity;
-import inf112.skeleton.server.WorldMap.entity.mapEntities.*;
 
 import java.util.ArrayList;
 
@@ -15,7 +14,6 @@ public abstract class GameBoard {
 
     public ArrayList<TileEntity>[] walls;
     public ArrayList<TileEntity>[] tileEntities;
-    public ArrayList<Laser> lasers;
     public ArrayList<Player>[] players;
 
 
@@ -27,38 +25,6 @@ public abstract class GameBoard {
      * @param y
      */
     void addTileEntity(TiledMapTile tile, int x, int y, TiledMapTileLayer.Cell cell) {
-        TileEntity newTile;
-        switch (TileDefinition.getTileById(tile.getId())) {
-            case LASER:
-            case LASERSOURCE:
-            case LASERCROSS:
-                newTile = new Laser(tile, x, y, cell, this);
-                lasers.add((Laser) newTile);
-                break;
-            case BLACK_HOLE:
-                newTile = new BlackHole(tile, x, y, cell, this);
-                break;
-            case VERTICAL:
-            case BELT_HORISONTAL:
-            case TBRACKET:
-            case TBRACKETFLIPPED:
-            case RIGHTTURN:
-            case LEFTTURN:
-                newTile = new Belt(tile, x, y, cell, this);
-                break;
-            case WALL:
-            case LWALL:
-                walls[Tools.coordToIndex(x, y, getWidth())].add(new Wall(tile, x, y, cell, this));
-                return;
-            case DWRENCH:
-            case WRENCH:
-                newTile = new Repair(tile, x, y, cell, this);
-                break;
-
-            default:
-                return;
-        }
-        tileEntities[Tools.coordToIndex(x, y, getWidth())].add(newTile);
     }
 
     /**

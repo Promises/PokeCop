@@ -21,7 +21,6 @@ public class TiledMapLoader extends GameBoard {
         walls = new ArrayList[getHeight() * getWidth()];
         tileEntities = new ArrayList[getHeight() * getWidth()];
         players = new ArrayList[getHeight() * getWidth()];
-        lasers = new ArrayList<>();
         for (int i = 0; i < walls.length; i++) {
             walls[i] = new ArrayList<TileEntity>();
             tileEntities[i] = new ArrayList<TileEntity>();

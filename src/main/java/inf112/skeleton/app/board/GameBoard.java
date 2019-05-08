@@ -113,58 +113,6 @@ public abstract class GameBoard {
         }
     }
 
-    public void receiveCard(CardPacket packet) {
-        if (myPlayer != null) {
-            myPlayer.receiveCardPacket(packet);
-        }
-    }
-
-    public void receiveCardHand(CardHandPacket packet) {
-        if (myPlayer != null) {
-            myPlayer.receiveCardHandPacket(packet);
-        } else {
-            foo = packet;
-        }
-    }
-
-    public void receiveFlags(FlagsPacket packet) {
-        for (int i = 0; i < packet.flags.length; i++) {
-            float x = packet.flags[i].getPos().x;
-            float y = packet.flags[i].getPos().y;
-            int number = packet.flags[i].getNumber();
-            Flag flag = new Flag(x, y, number);
-            entities.add(flag);
-        }
-    }
-
-    public void updateFlag(FlagUpdatePacket packet) {
-        float x = packet.flag.getPos().x;
-        float y = packet.flag.getPos().y;
-        int number = packet.flag.getNumber();
-        Flag flag = new Flag(x, y, number);
-        for (Entity entity : entities) {
-            if (flag.equals(entity)) {
-                ((Flag) entity).disableFlag();
-                return;
-            }
-
-        }
-    }
-
-    public void forceSelect() {
-        if (myPlayer != null) {
-            myPlayer.forceSelect();
-            /*Gdx.app.log("GameBoard - forceSelect", "myPlayer is not null.");
-            if(myPlayer.cards != null && myPlayer.selectedCards != null) {
-                Gdx.app.log("GameBoard - forceSelect", "cards and selectedCards are not null.");
-                for (int i = 0; i < 5; i++) {
-                    Gdx.app.log("GameBoard - forceSelect", "Setting selected card " + i + " to " + myPlayer.cards[i].toString());
-                    myPlayer.selectedCards[i] = myPlayer.cards[i];
-                }
-            }*/
-        }
-    }
-
 
     public abstract void dispose();
 
@@ -177,7 +125,7 @@ public abstract class GameBoard {
 
     public void addPlayer(PlayerInitPacket pkt) {
         if (pkt.getUUID().equalsIgnoreCase(RoboRally.clientInfo)) {
-            this.myPlayer = new Player(pkt.getUUID(), pkt.getName(), pkt.getPos(), pkt.getHealth(), pkt.getSlot(), pkt.getFacing());
+            this.myPlayer = new Player(pkt.getUUID(), pkt.getName(), pkt.getPos(), pkt.getSlot(), pkt.getFacing());
             return;
         }
         this.players.put(pkt.getUUID(), new Player(pkt.getUUID(), pkt.getName(), pkt.getPos(), pkt.getHealth(), pkt.getSlot(), pkt.getFacing()));

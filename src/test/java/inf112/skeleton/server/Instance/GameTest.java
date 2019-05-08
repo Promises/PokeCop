@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.common.specs.*;
 import inf112.skeleton.server.GameWorldInstance;
-import inf112.skeleton.server.WorldMap.entity.Flag;
 import inf112.skeleton.server.WorldMap.entity.Player;
 import inf112.skeleton.server.WorldMap.entity.TileEntity;
 import inf112.skeleton.server.user.User;
