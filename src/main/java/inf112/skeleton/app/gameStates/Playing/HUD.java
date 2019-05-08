@@ -10,14 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.GUI.ChatBox;
-import inf112.skeleton.app.GUI.PlayerDeck;
 import inf112.skeleton.app.GUI.StatusBar;
 import inf112.skeleton.app.GUI.Timer;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.board.entity.Player;
 import inf112.skeleton.app.gameStates.GameStateManager;
 import inf112.skeleton.common.packet.data.ChatMessagePacket;
-import inf112.skeleton.common.packet.data.TimerPacket;
 import io.netty.channel.Channel;
 
 import java.util.Collection;
@@ -25,7 +23,6 @@ import java.util.Collection;
 public class HUD {
     private GameStateManager gsm;
     private Stage stage;
-    private PlayerDeck playerDeck;
     private InputMultiplexer inputMultiplexer;
     private Channel channel;
     public ChatBox gameChat;
@@ -57,7 +54,6 @@ public class HUD {
         turnTimer.setSize(turnTimer.getMinWidth(), turnTimer.getMinHeight());
         turnTimer.start();
 
-        playerDeck = new PlayerDeck(gsm, inputMultiplexer, channel);
         statusBar = new StatusBar();
 
         fpsLabel = new Label("[RED]fps: ", RoboRally.graphics.labelStyle_markup_enabled);
@@ -66,15 +62,6 @@ public class HUD {
         stage.addActor(fpsLabel);
         stage.addActor(turnTimer);
         stage.addActor(statusBar);
-    }
-
-    /**
-     * Get the Player Deck
-     *
-     * @return PlayerDeck
-     */
-    public PlayerDeck getPlayerDeck() {
-        return playerDeck;
     }
 
     /**
@@ -120,7 +107,6 @@ public class HUD {
 
         if (statusBar != null) {
 
-            statusBar.displayCards();
             statusBar.setPosition(stage.getWidth() - statusBar.getWidth(), stage.getHeight() - statusBar.getHeight());
             turnTimer.setPosition(stage.getWidth() - turnTimer.getMinWidth() - 2, stage.getHeight() - statusBar.getHeight() - turnTimer.getHeight() - 2);
         }
@@ -128,11 +114,6 @@ public class HUD {
 
         // Draw stage to screen
         stage.draw();
-
-
-        if (playerDeck != null) {
-            playerDeck.render(sb);
-        }
     }
 
     /**
@@ -144,9 +125,6 @@ public class HUD {
     public void resize(int width, int height) {
         // TODO: Fix bug where event-listener click-box won't move along with button.
         stage.getViewport().update(width, height);
-        if (playerDeck != null) {
-            playerDeck.resize(width, height);
-        }
     }
 
     /**
@@ -176,33 +154,5 @@ public class HUD {
 
     private void statusBar_clearPlayers() {
         statusBar.clear();
-    }
-
-    public void statusBar_addDamage(String username) {
-        statusBar.addDamage(username);
-    }
-
-    public void statusBar_removeDamage(String username) {
-        statusBar.removeDamage(username);
-    }
-
-    public void statusBar_addLife(String username) {
-        statusBar.addLife(username);
-    }
-
-    public void statusBar_removeLife(String username) {
-        statusBar.removeLife(username);
-    }
-
-    public void statusBar_powerDown(String username, boolean powerDown) {
-        statusBar.powerDown(username, powerDown);
-    }
-
-    public void statusBar_hideCards() {
-        statusBar.hideCards();
-    }
-
-    public void statusBar_showCards() {
-        statusBar.displayCards();
     }
 }

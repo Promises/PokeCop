@@ -64,26 +64,7 @@ public class GameSocketHandler extends SimpleChannelInboundHandler<String> {
             case PLAYER_UPDATE:
                 UpdatePlayerPacket playerUpdate = UpdatePlayerPacket.parseJSON(jsonObject);
                 Player toUpdate = RoboRally.gameBoard.getPlayer(playerUpdate.getUUID());
-                toUpdate.updateRobot(playerUpdate);
-                break;
-            case CARD_PACKET:
-                CardPacket packet = CardPacket.parseJSON(jsonObject);
-                RoboRally.gameBoard.receiveCard(packet);
-                break;
-            case CARD_HAND_PACKET:
-                CardHandPacket cardHandPacket = CardHandPacket.parseJSON(jsonObject);
-                RoboRally.gameBoard.receiveCardHand(cardHandPacket);
-                if (RoboRally.roboRally.gsm.peek() instanceof State_Playing) {
-                    ((State_Playing) RoboRally.roboRally.gsm.peek()).setCardsSelectedPacket(null);
-                }
-                break;
-            case SEND_FLAGS:
-                FlagsPacket flags = FlagsPacket.parseJSON(jsonObject);
-                RoboRally.gameBoard.receiveFlags(flags);
-                break;
-            case SEND_FLAG_UPDATE:
-                FlagUpdatePacket flagUpdatePacket = FlagUpdatePacket.parseJSON(jsonObject);
-                RoboRally.gameBoard.updateFlag(flagUpdatePacket);
+                toUpdate.update();
                 break;
             case REMOVE_PLAYER:
                 PlayerRemovePacket playerRemovePacket = PlayerRemovePacket.parseJSON(jsonObject);
@@ -125,14 +106,6 @@ public class GameSocketHandler extends SimpleChannelInboundHandler<String> {
                             ((State_MainMenu) RoboRally.roboRally.gsm.peek()).packets_GameStart.add(Boolean.TRUE);
                         }
                         break;
-                    case FORCE_CARDS:
-                        RoboRally.gameBoard.hud.getPlayerDeck().forceUpdateSelected();
-
-                        RoboRally.gameBoard.forceSelect();
-//                        if (RoboRally.gameBoard.hud.hasDeck()) {
-//                            RoboRally.gameBoard.hud.getPlayerDeck().removeDeck();
-//                        }
-                        break;
                 }
                 break;
             case LOBBY_UPDATE:
@@ -144,11 +117,6 @@ public class GameSocketHandler extends SimpleChannelInboundHandler<String> {
                 break;
             case ERROR_LOBBY_RESPONSE:
                 RoboRally.roboRally.gsm.peek().addMessageToScreen("Lobby already exists...");
-                break;
-            case CARDS_SELECTED:
-                if (RoboRally.roboRally.gsm.peek() instanceof State_Playing) {
-                    ((State_Playing) RoboRally.roboRally.gsm.peek()).setCardsSelectedPacket(CardsSelectedPacket.parseJSON(jsonObject));
-                }
                 break;
             default:
                 System.err.println("Unhandled packet: " + packetId.name());

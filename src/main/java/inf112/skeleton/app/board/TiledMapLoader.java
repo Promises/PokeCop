@@ -8,8 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.board.entity.Entity;
-import inf112.skeleton.app.board.entity.Flag;
-import inf112.skeleton.app.board.entity.Laser;
 import inf112.skeleton.app.board.entity.Wall;
 import inf112.skeleton.app.gameStates.Playing.State_Playing;
 import inf112.skeleton.common.specs.MapFile;
@@ -43,7 +41,6 @@ public class TiledMapLoader extends GameBoard {
 //        this.addEntity(foo);
         renderWalls = new ArrayList<>();
 
-        laserSources = new ArrayList<>();
         entityLocations = new ArrayList[getHeight() * getWidth()];
         walls = new ArrayList[getHeight() * getWidth()];
         for (int i = 0; i < entityLocations.length; i++) {
@@ -75,10 +72,6 @@ public class TiledMapLoader extends GameBoard {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         super.render(camera, batch);
-//        TiledMapTile test = getTile(TileDefinition.LASER);
-//        batch.draw(test.getTextureRegion(), 10, 10, 32, 32,64,64,1,1,rotaation++);
-
-
         batch.end();
     }
 

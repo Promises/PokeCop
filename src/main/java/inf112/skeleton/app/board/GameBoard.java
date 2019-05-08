@@ -8,9 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.board.entity.*;
 import inf112.skeleton.app.board.entity.Entity;
-import inf112.skeleton.app.board.entity.Flag;
 import inf112.skeleton.app.board.entity.Player;
-import inf112.skeleton.app.board.entity.Robot;
 import inf112.skeleton.app.gameStates.Playing.HUD;
 import inf112.skeleton.app.gameStates.Playing.State_Playing;
 import inf112.skeleton.common.packet.data.*;
@@ -27,8 +25,6 @@ public abstract class GameBoard {
     protected ArrayList<Entity> entities;
     protected Map<String, Player> players;
     public Player myPlayer = null;
-    private CardHandPacket foo = null;
-    public ArrayList<Laser> laserSources;
     public ArrayList<Entity>[] entityLocations;
     public ArrayList<Wall>[] walls;
     public ArrayList<Entity> renderWalls;
@@ -49,11 +45,6 @@ public abstract class GameBoard {
     void addTileEntity(TiledMapTile tile, int x, int y, TiledMapTileLayer.Cell cell) {
 
         switch (TileDefinition.getTileById(tile.getId())) {
-            case LASERSOURCE:
-            case DLASERSOURCE:
-                laserSources.add(new Laser(tile, x, y, cell));
-                break;
-
             case WALL:
             case LWALL:
                 Wall wall = new Wall(tile, x, y, cell);
@@ -72,9 +63,6 @@ public abstract class GameBoard {
 
     public void render(OrthographicCamera camera, SpriteBatch batch) {
         for (Entity entity : entities) {
-            entity.render(batch);
-        }
-        for (Entity entity: laserSources){
             entity.render(batch);
         }
         for (Entity wall : renderWalls) {
@@ -96,19 +84,7 @@ public abstract class GameBoard {
             entity.update();
 
         }
-        for (Entity entity: laserSources){
-            entity.update();
-        }
         if (myPlayer != null) {
-            if (myPlayer.cards == null && foo != null) {
-                Gdx.app.log("Gameboard clientside - update", "Trying to receive lost cardHandPacket");
-                myPlayer.receiveCardHandPacket(foo);
-            }
-            if (myPlayer.getRobot() != null) {
-                if (playing.cameraHandler.isFollowing()) {
-                    playing.cameraHandler.updatePosition(myPlayer.getRobot().getPos());
-                }
-            }
             myPlayer.update();
         }
     }
@@ -128,16 +104,16 @@ public abstract class GameBoard {
             this.myPlayer = new Player(pkt.getUUID(), pkt.getName(), pkt.getPos(), pkt.getSlot(), pkt.getFacing());
             return;
         }
-        this.players.put(pkt.getUUID(), new Player(pkt.getUUID(), pkt.getName(), pkt.getPos(), pkt.getHealth(), pkt.getSlot(), pkt.getFacing()));
+        this.players.put(pkt.getUUID(), new Player(pkt.getUUID(), pkt.getName(), pkt.getPos(), pkt.getSlot(), pkt.getFacing()));
     }
 
     public void setupPlayer(PlayerInitPacket pkt) {
-        this.myPlayer = new Player(pkt.getUUID(), pkt.getName(), pkt.getPos(), pkt.getHealth(), pkt.getSlot(), pkt.getFacing());
+        this.myPlayer = new Player(pkt.getUUID(), pkt.getName(), pkt.getPos(), pkt.getSlot(), pkt.getFacing());
     }
 
     public void removePlayer(PlayerRemovePacket pkt) {
         Player leavingPlayer = this.getPlayer(pkt.getUUID());
-        this.entities.remove(leavingPlayer.getRobot());
+        this.entities.remove(leavingPlayer);
         this.players.remove(pkt.getUUID());
     }
 

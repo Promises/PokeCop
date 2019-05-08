@@ -12,8 +12,6 @@ import inf112.skeleton.app.board.GameBoard;
 import inf112.skeleton.app.gameStates.GameMessage.State_Message;
 import inf112.skeleton.app.gameStates.GameState;
 import inf112.skeleton.app.gameStates.GameStateManager;
-import inf112.skeleton.app.gameStates.MainMenu.State_MainMenu;
-import inf112.skeleton.common.packet.data.CardsSelectedPacket;
 import inf112.skeleton.common.specs.StateChange;
 import io.netty.channel.Channel;
 
@@ -28,7 +26,6 @@ public class State_Playing extends GameState {
     public CameraHandler cameraHandler;
     private static GameBoard gameBoard;
     private HUD hud;
-    private CardsSelectedPacket cardsSelectedPacket;
     private boolean displayHUD = true;
 
     /**
@@ -101,13 +98,5 @@ public class State_Playing extends GameState {
     public void resize(int width, int height) {
         viewport.update(width, height, false);
         hud.resize(width, height);
-    }
-
-    public CardsSelectedPacket getCardsSelectedPacket() {
-        return cardsSelectedPacket;
-    }
-
-    public void setCardsSelectedPacket(CardsSelectedPacket cardsSelectedPacket) {
-        this.cardsSelectedPacket = cardsSelectedPacket;
     }
 }
