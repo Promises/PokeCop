@@ -111,38 +111,6 @@ public class Tab_Lobby extends MenuTab {
         else btn_start.setDisabled(true);
         rightHalf_display.add(btn_start).padTop(20).size(100, 45).align(Align.right).row();
 
-        // Button "Add bot"
-        ImageTextButton btn_addAi = new ImageTextButton("Add AI", isHost ? RoboRally.graphics.btnStyle_rounded_focused : RoboRally.graphics.btnStyle_rounded_frozen);
-        if(isHost) {
-            btn_addAi.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent changeEvent, Actor actor) {
-                    ChatMessagePacket data = new ChatMessagePacket("!addai");
-                    Packet packet = new Packet(ToServer.CHAT_MESSAGE.ordinal(), data);
-                    channel.writeAndFlush(Tools.GSON.toJson(packet) + "\r\n");
-                }
-            });
-        } else {
-            btn_addAi.setDisabled(true);
-        }
-        rightHalf_display.add(btn_addAi).padTop(5).size(100,45).align(Align.right).row();
-
-        // Button "Kick bot"
-        ImageTextButton btn_kickAi = new ImageTextButton("Kick AI", isHost ? RoboRally.graphics.btnStyle_rounded_focused : RoboRally.graphics.btnStyle_rounded_frozen);
-        if(isHost) {
-            btn_kickAi.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent changeEvent, Actor actor) {
-                    ChatMessagePacket data = new ChatMessagePacket("!kickai");
-                    Packet packet = new Packet(ToServer.CHAT_MESSAGE.ordinal(), data);
-                    channel.writeAndFlush(Tools.GSON.toJson(packet) + "\r\n");
-                }
-            });
-        } else {
-            btn_kickAi.setDisabled(true);
-        }
-        rightHalf_display.add(btn_kickAi).padTop(5).size(100,45).align(Align.right).row();
-
         // Button "Leave"
         ImageTextButton btn_leave = new ImageTextButton("Leave", RoboRally.graphics.btnStyle_rounded_focused);
         btn_leave.addListener(new ChangeListener() {
