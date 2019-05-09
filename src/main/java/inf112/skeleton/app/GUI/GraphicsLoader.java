@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import inf112.skeleton.common.specs.CardType;
 
 import java.util.HashMap;
 
@@ -64,9 +63,6 @@ public class GraphicsLoader {
                     sb_damageInactive,
                     sb_powerDown,
                     sb_powerDownInactive;
-
-    public HashMap<CardType, Drawable> card_drawables;
-    public HashMap<CardType, Drawable> card_drawables_checked;
 
     public Color    color_primary;
 
@@ -138,13 +134,6 @@ public class GraphicsLoader {
         pixel_black = getDrawable(folder_ChatBox + "pixel_black.png");
 
         messageBox_bg = getDrawable(folder_MessageBox + "bg.png");
-
-        card_drawables = new HashMap<>();
-        card_drawables_checked = new HashMap<>();
-        for (CardType move : CardType.values()) {
-            card_drawables.put(move, getDrawable(folder_Cards + move.name() + ".png"));
-            card_drawables_checked.put(move, getDrawable(folder_Cards + "checked/" + move.name() + ".png"));
-        }
 
         sb_bg = getDrawable(folder_StatusBar + "bg.png");
         sb_life = getDrawable(folder_StatusBar + "Life_Green.png");

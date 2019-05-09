@@ -1,22 +1,14 @@
 package inf112.skeleton.app.GUI;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.board.entity.Player;
-import inf112.skeleton.app.gameStates.Playing.State_Playing;
-import inf112.skeleton.common.specs.Card;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-
-import static inf112.skeleton.common.specs.CardType.GREY;
 
 public class StatusBar extends Table {
 
