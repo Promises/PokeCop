@@ -36,8 +36,9 @@ public class State_Playing extends GameState {
      */
     public State_Playing(GameStateManager gsm, Channel channel) {
         super(gsm, channel);
-        viewport = new FillViewport(width, height, camera);
         camera.setToOrtho(false, width, height);
+        viewport = new FillViewport(width, height, camera);
+
         camera.update();
 
         inputContainer = new InputContainer();

@@ -25,43 +25,30 @@ public class TiledMapLoader extends GameBoard {
         super();
         tiledMap = new TmxMapLoader().load(mapFile.filename);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-//        //TODO Remove below when done.
-//        this.addEntity(new Flag(11,10,1));
-//        this.addEntity(new Flag(12,10,2));
-//        this.addEntity(new Flag(13,10,3));
-//        this.addEntity(new Flag(14,10,4));
-//        this.addEntity(new Flag(15,10,5));
-//        this.addEntity(new Flag(16,10,6));
-//        this.addEntity(new Flag(17,10,7));
-//        this.addEntity(new Flag(18,10,8));
-//        this.addEntity(new Flag(19,10,9));
-//        this.addEntity(new Flag(20,10,10));
-//        Flag foo = new Flag(11,11,11);
-//        foo.disableFlag();
-//        this.addEntity(foo);
+
         renderWalls = new ArrayList<>();
 
         entityLocations = new ArrayList[getHeight() * getWidth()];
         walls = new ArrayList[getHeight() * getWidth()];
-        for (int i = 0; i < entityLocations.length; i++) {
-            entityLocations[i] = new ArrayList<Entity>();
-            walls[i] = new ArrayList<Wall>();
-        }
-        // Check for tile entities like lasers and black holes
-        for (int i = 0; i < tiledMap.getLayers().getCount(); i++) {
-            TiledMapTileLayer layer = ((TiledMapTileLayer) tiledMap.getLayers().get(i));
-            for (int x = 0; x < getWidth(); x++) {
-                for (int y = 0; y < getHeight(); y++) {
-                    TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-                    if (cell != null) {
-                        TiledMapTile tile = cell.getTile();
-                        if (tile != null) {
-                            addTileEntity(tile, x, y, cell);
-                        }
-                    }
-                }
-            }
-        }
+//        for (int i = 0; i < entityLocations.length; i++) {
+//            entityLocations[i] = new ArrayList<Entity>();
+//            walls[i] = new ArrayList<Wall>();
+//        }
+//        // Check for tile entities like lasers and black holes
+//        for (int i = 0; i < tiledMap.getLayers().getCount(); i++) {
+//            TiledMapTileLayer layer = ((TiledMapTileLayer) tiledMap.getLayers().get(i));
+//            for (int x = 0; x < getWidth(); x++) {
+//                for (int y = 0; y < getHeight(); y++) {
+//                    TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+//                    if (cell != null) {
+//                        TiledMapTile tile = cell.getTile();
+//                        if (tile != null) {
+//                            addTileEntity(tile, x, y, cell);
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     @Override

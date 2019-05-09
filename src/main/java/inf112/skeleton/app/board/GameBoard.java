@@ -43,18 +43,19 @@ public abstract class GameBoard {
      * @param y
      */
     void addTileEntity(TiledMapTile tile, int x, int y, TiledMapTileLayer.Cell cell) {
-
-        switch (TileDefinition.getTileById(tile.getId())) {
-            case WALL:
-            case LWALL:
-                Wall wall = new Wall(tile, x, y, cell);
-                walls[Tools.coordToIndex(x, y, getWidth())].add(wall);
-                renderWalls.add(wall);
-                break;
-
-
-
-        }
+        return;
+//        switch (TileDefinition.getTileById(tile.getId())) {
+//            case WALL:
+//            case LWALL:
+//                Wall wall = new Wall(tile, x, y, cell);
+//                walls[Tools.coordToIndex(x, y, getWidth())].add(wall);
+//                renderWalls.add(wall);
+//                break;
+//
+//
+//
+//
+//        }
     }
 
     public void addEntity(Entity e) {
@@ -62,31 +63,31 @@ public abstract class GameBoard {
     }
 
     public void render(OrthographicCamera camera, SpriteBatch batch) {
-        for (Entity entity : entities) {
-            entity.render(batch);
-        }
-        for (Entity wall : renderWalls) {
-            wall.render(batch);
-        }
-        for (Entity entity : entities) {
-            entity.renderName(batch, camera.zoom);
-        }
+//        for (Entity entity : entities) {
+//            entity.render(batch);
+//        }
+//        for (Entity wall : renderWalls) {
+//            wall.render(batch);
+//        }
+//        for (Entity entity : entities) {
+//            entity.renderName(batch, camera.zoom);
+//        }
 
 
     }
 
     public void update(State_Playing playing) {
-        for (Player player : players.values()) {
-            player.update();
-
-        }
-        for (Entity entity : entities) {
-            entity.update();
-
-        }
-        if (myPlayer != null) {
-            myPlayer.update();
-        }
+//        for (Player player : players.values()) {
+//            player.update();
+//
+//        }
+//        for (Entity entity : entities) {
+//            entity.update();
+//
+//        }
+//        if (myPlayer != null) {
+//            myPlayer.update();
+//        }
     }
 
 
