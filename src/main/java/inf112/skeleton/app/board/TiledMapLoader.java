@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.board.entity.Entity;
 import inf112.skeleton.app.board.entity.Wall;
+import inf112.skeleton.app.board.entity.testTrainer;
 import inf112.skeleton.app.gameStates.Playing.State_Playing;
 import inf112.skeleton.common.specs.MapFile;
 import inf112.skeleton.common.specs.TileDefinition;
@@ -30,10 +31,10 @@ public class TiledMapLoader extends GameBoard {
 
         entityLocations = new ArrayList[getHeight() * getWidth()];
         walls = new ArrayList[getHeight() * getWidth()];
-//        for (int i = 0; i < entityLocations.length; i++) {
-//            entityLocations[i] = new ArrayList<Entity>();
-//            walls[i] = new ArrayList<Wall>();
-//        }
+        for (int i = 0; i < entityLocations.length; i++) {
+            entityLocations[i] = new ArrayList<Entity>();
+            walls[i] = new ArrayList<Wall>();
+        }
 //        // Check for tile entities like lasers and black holes
 //        for (int i = 0; i < tiledMap.getLayers().getCount(); i++) {
 //            TiledMapTileLayer layer = ((TiledMapTileLayer) tiledMap.getLayers().get(i));
@@ -49,6 +50,7 @@ public class TiledMapLoader extends GameBoard {
 //                }
 //            }
 //        }
+        entities.add(new testTrainer(2, 0, 8, this));
     }
 
     @Override
@@ -74,7 +76,7 @@ public class TiledMapLoader extends GameBoard {
     }
 
     @Override
-    public TiledMapTile getTile(TileDefinition definition){
+    public TiledMapTile getTile(TileDefinition definition) {
         return tiledMap.getTileSets().getTile(definition.getId());
     }
 

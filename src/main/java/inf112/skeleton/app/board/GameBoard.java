@@ -63,31 +63,31 @@ public abstract class GameBoard {
     }
 
     public void render(OrthographicCamera camera, SpriteBatch batch) {
-//        for (Entity entity : entities) {
-//            entity.render(batch);
-//        }
-//        for (Entity wall : renderWalls) {
-//            wall.render(batch);
-//        }
-//        for (Entity entity : entities) {
-//            entity.renderName(batch, camera.zoom);
-//        }
+        for (Entity entity : entities) {
+            entity.render(batch);
+        }
+        for (Entity wall : renderWalls) {
+            wall.render(batch);
+        }
+        for (Entity entity : entities) {
+            entity.renderName(batch, camera.zoom);
+        }
 
 
     }
 
     public void update(State_Playing playing) {
-//        for (Player player : players.values()) {
-//            player.update();
-//
-//        }
-//        for (Entity entity : entities) {
-//            entity.update();
-//
-//        }
-//        if (myPlayer != null) {
-//            myPlayer.update();
-//        }
+        for (Player player : players.values()) {
+            player.update();
+
+        }
+        for (Entity entity : entities) {
+            entity.update();
+
+        }
+        if (myPlayer != null) {
+            myPlayer.update();
+        }
     }
 
 

@@ -15,8 +15,7 @@ public class Sprites {
     @SuppressWarnings("unchecked")
     public static void setup(){
         textureAtlases = new TextureAtlas[9];
-        robotAnimations = new Animation[8][4];
-        animation_flag = new Animation[2];
+        robotAnimations = new Animation[9][4];
 
         textureAtlases[0] = new TextureAtlas(Gdx.files.internal("graphics/sprites/robots/robotAllSidesBlue2.atlas"));
         textureAtlases[1] = new TextureAtlas(Gdx.files.internal("graphics/sprites/robots/robotAllSidesDarkGreen.atlas"));
@@ -32,9 +31,11 @@ public class Sprites {
             robotAnimations[i][Direction.EAST.ordinal()] = new Animation(0.1f, textureAtlases[i].findRegions("robotAllSides_East"), Animation.PlayMode.LOOP);
             robotAnimations[i][Direction.WEST.ordinal()] = new Animation(0.1f, textureAtlases[i].findRegions("robotAllSides_West"), Animation.PlayMode.LOOP);
         }
-        textureAtlases[8] = new TextureAtlas(Gdx.files.internal("graphics/sprites/flag.atlas"));
-        animation_flag[0] = new Animation(0.1f,textureAtlases[8].findRegions("flag_Inactive"), Animation.PlayMode.LOOP);
-        animation_flag[1] = new Animation(0.1f,textureAtlases[8].findRegions("flag_Active"), Animation.PlayMode.LOOP);
+        textureAtlases[8] = new TextureAtlas(Gdx.files.internal("graphics/sprites/robots/trainer.atlas"));
+        robotAnimations[8][Direction.NORTH.ordinal()] = new Animation(0.2f, textureAtlases[8].findRegions("trainer_North"), Animation.PlayMode.LOOP);
+        robotAnimations[8][Direction.SOUTH.ordinal()] = new Animation(0.2f, textureAtlases[8].findRegions("trainer_South"), Animation.PlayMode.LOOP);
+        robotAnimations[8][Direction.EAST.ordinal()] = new Animation(0.2f, textureAtlases[8].findRegions("trainer_East"), Animation.PlayMode.LOOP);
+        robotAnimations[8][Direction.WEST.ordinal()] = new Animation(0.2f, textureAtlases[8].findRegions("trainer_West"), Animation.PlayMode.LOOP);
     }
 
 }
