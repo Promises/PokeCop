@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.board.GameBoard;
+import inf112.skeleton.app.gameStates.Playing.State_Playing;
 import inf112.skeleton.common.packet.data.UpdatePlayerPacket;
 import inf112.skeleton.common.specs.Direction;
 import inf112.skeleton.common.utility.Tools;
@@ -95,6 +96,9 @@ public class testTrainer extends Entity {
 
             this.position[0] = Math.round(this.position[0]);
             this.position[1] = Math.round(this.position[1]);
+            ((State_Playing)RoboRally.roboRally.gsm.peek()).cameraHandler.updatePosition(new Vector2(position[0], position[1]));
+
+
 
 
         }
@@ -206,6 +210,7 @@ public class testTrainer extends Entity {
             processingMovement(System.currentTimeMillis());
 
         }
+
     }
 
     @Override

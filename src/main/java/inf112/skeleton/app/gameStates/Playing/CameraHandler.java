@@ -127,7 +127,7 @@ public class CameraHandler {
     }
 
     public void updatePosition(Vector2 pos) {
-        float diffY = camera.position.y - (pos.y-128);
+        float diffY = camera.position.y - (pos.y);
         float diffX = camera.position.x - pos.x;
         camera.translate(-diffX,-diffY);
     }
