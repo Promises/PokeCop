@@ -1,6 +1,8 @@
 package inf112.skeleton.app.board.entity;
 
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.RoboRally;
+import inf112.skeleton.app.board.GameBoard;
 import inf112.skeleton.common.specs.Direction;
 
 public class Player {
@@ -9,6 +11,7 @@ public class Player {
     public String name;
     Vector2 initialPos;
     Direction initialDirection;
+    testTrainer trainer;
 
     /**
      * @param uuid      Unique id of owner
@@ -23,6 +26,7 @@ public class Player {
         this.slot = slot;
         this.initialPos = pos;
         this.initialDirection = direction;
+        this.trainer = new testTrainer(initialPos.x, initialPos.y, slot, RoboRally.gameBoard);
     }
 
     /**
