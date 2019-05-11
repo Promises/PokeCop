@@ -24,7 +24,6 @@ public class State_Playing extends GameState {
     private InputMultiplexer inputMultiplexer;
     private InputContainer inputContainer;
     public CameraHandler cameraHandler;
-    public MovementHandler movementHandler;
     private static GameBoard gameBoard;
     private HUD hud;
     private boolean displayHUD = true;
@@ -44,7 +43,6 @@ public class State_Playing extends GameState {
 
         inputContainer = new InputContainer();
         cameraHandler = new CameraHandler(camera, inputContainer);
-        movementHandler = new MovementHandler(inputContainer);
         inputMultiplexer = new InputMultiplexer(inputContainer);
         inputMultiplexer.addProcessor(stage);
 
@@ -71,8 +69,6 @@ public class State_Playing extends GameState {
         }
         if (!hud.gameChat.scrollPane.isDragging() && !hud.gameChatIsTouched)
             cameraHandler.handle();
-
-        movementHandler.handle();
 
         camera.update();
         gameBoard.update(this);

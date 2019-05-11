@@ -1,5 +1,6 @@
 package inf112.skeleton.server.user;
 
+import com.badlogic.gdx.Input;
 import inf112.skeleton.common.packet.FromServer;
 import inf112.skeleton.common.packet.Packet;
 import inf112.skeleton.common.packet.data.*;
@@ -22,6 +23,7 @@ public class User {
     private FriendsList friendsList;
     private Lobby lobby;
     private String uuid;
+    public boolean[] keys;
 
     /**
      * Constructor to create a basic user before logging in
@@ -45,6 +47,7 @@ public class User {
         this.name = username;
         this.password = password;
         this.channel = channel;
+        this.keys = new boolean[255];
     }
 
     /**
@@ -312,5 +315,9 @@ public class User {
      */
     public Player getPlayer() {
         return player;
+    }
+
+    public void updateKey(KeyPacket parseJSON) {
+        this.keys[parseJSON.getKey()] = parseJSON.isDown();
     }
 }

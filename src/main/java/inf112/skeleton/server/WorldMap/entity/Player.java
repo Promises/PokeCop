@@ -1,5 +1,6 @@
 package inf112.skeleton.server.WorldMap.entity;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.common.packet.FromServer;
 import inf112.skeleton.common.packet.Packet;
@@ -68,7 +69,21 @@ public class Player {
      * Run tick based actions
      */
     public void update() {
-        processingMovement(System.currentTimeMillis());
+        if(!processingMovement(System.currentTimeMillis(), true)){
+            if(owner.keys[Input.Keys.UP]){
+                startMovement(Direction.NORTH, 1, false);
+            }
+            if(owner.keys[Input.Keys.DOWN]){
+                startMovement(Direction.SOUTH, 1, false);
+            }
+            if(owner.keys[Input.Keys.LEFT]){
+                startMovement(Direction.WEST, 1, false);
+            }
+            if(owner.keys[Input.Keys.RIGHT]){
+                startMovement(Direction.EAST, 1, false);
+            }
+        }
+
         if ((System.currentTimeMillis() - this.timeInit) >= this.delayMessage) {
             this.timeInit = System.currentTimeMillis();
         }
@@ -79,10 +94,15 @@ public class Player {
      * Check if the player is ready to move or has finished moving
      *
      * @param currentTime the current time
+     * @param keyBased
      * @return boolean false if no movement is occurring
      */
-    private boolean processingMovement(long currentTime) {
+    private boolean processingMovement(long currentTime, boolean keyBased) {
         if (this.currentPos.x == this.movingTo.x && this.currentPos.y == this.movingTo.y) {
+            return false;
+        }
+        if (((currentTime - this.timeMoved) >= this.delayMove - 100) && keyBased) {
+            this.placeAt(this.movingTo.x, this.movingTo.y);
             return false;
         }
 
@@ -167,7 +187,7 @@ public class Player {
      * @return The amount of tiles the player moved.
      */
     public int startMovement(Direction direction, int initialAmount, boolean pushed) {
-        if (!processingMovement(System.currentTimeMillis())) {
+        if (!processingMovement(System.currentTimeMillis(), false)) {
             int dx = 0;
             int dy = 0;
             int actual = initialAmount;     // The actual amount the player moved.

@@ -76,7 +76,7 @@ public class CameraHandler {
         // Camera movement
 
         // Move camera based on keys (up, down, left, right) pressed
-        if (isPressed(Keys.UP)) {
+      /*  if (isPressed(Keys.UP)) {
             camera.translate(0, baseCameraMovementSpeed * speedMultiplier);
             setFollowing(false);
 
@@ -95,7 +95,7 @@ public class CameraHandler {
             camera.translate(baseCameraMovementSpeed * speedMultiplier, 0);
             setFollowing(false);
 
-        }
+        }*/
         if (isPressed(Keys.COMMA)) {
             setFollowing(true);
         }

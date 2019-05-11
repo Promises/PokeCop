@@ -101,6 +101,10 @@ public class IncomingPacketHandler {
                         break;
                 }
                 break;
+            case KEY_PACKET:
+                User keyPressingUser = handler.getEntityFromLoggedIn(incoming);
+                keyPressingUser.updateKey(KeyPacket.parseJSON(jsonObject));
+                break;
             default:
                 System.err.println("Unhandled packet: " + packetId.name());
                 System.out.println("data: " + jsonObject.get("data"));

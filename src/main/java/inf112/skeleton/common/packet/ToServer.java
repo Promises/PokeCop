@@ -9,4 +9,5 @@ public enum ToServer {
     CARD_PACKET,
     CARD_HAND_PACKET,
     REQUEST_DATA,
+    KEY_PACKET,
 }
