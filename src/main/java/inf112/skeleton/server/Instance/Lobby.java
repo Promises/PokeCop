@@ -46,6 +46,17 @@ public class Lobby {
     }
 
     /**
+
+     * Initialise the players for all users in lobby
+
+     */
+
+    private void initPlayers() {
+        game.initPlayers();
+
+    }
+
+    /**
      * Start the 5 second countdown to game start
      *
      * @param user the user telling the game to start
@@ -90,6 +101,7 @@ public class Lobby {
                 break;
             case 3:
                 broadcastChatMessage("[#FFFFFF]Game starting in [#FF0000]2...");
+                initPlayers();
                 break;
             case 4:
                 broadcastChatMessage("[#FFFFFF]Game starting in [#FF0000]1...");
