@@ -149,7 +149,7 @@ public class testTrainer extends Entity {
 
     @Override
     public void update() {
-        boolean isMoving = processingMovement(System.currentTimeMillis());
+        /*boolean isMoving = processingMovement(System.currentTimeMillis());
         if (!isMoving) {
             int x = (int) getX();
             int y = (int) getY();
@@ -209,7 +209,7 @@ public class testTrainer extends Entity {
             this.timeMoved = System.currentTimeMillis();
             processingMovement(System.currentTimeMillis());
 
-        }
+        }*/
 
     }
 

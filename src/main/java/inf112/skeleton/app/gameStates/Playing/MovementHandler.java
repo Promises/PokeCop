@@ -23,9 +23,23 @@ public class MovementHandler {
     }
 
     private void handleKeys() {
-        if(isPressed(Keys.P)) {
-            System.out.println("Handle keys P");
+        if(isPressed(Keys.W)) {
             ChatMessagePacket cmp = new ChatMessagePacket("Move north 1");
+            Packet packet = new Packet(ToServer.CHAT_MESSAGE.ordinal(), cmp);
+            packet.sendPacket(RoboRally.channel);
+        }
+        if(isPressed(Keys.A)) {
+            ChatMessagePacket cmp = new ChatMessagePacket("Move west 1");
+            Packet packet = new Packet(ToServer.CHAT_MESSAGE.ordinal(), cmp);
+            packet.sendPacket(RoboRally.channel);
+        }
+        if(isPressed(Keys.S)) {
+            ChatMessagePacket cmp = new ChatMessagePacket("Move south 1");
+            Packet packet = new Packet(ToServer.CHAT_MESSAGE.ordinal(), cmp);
+            packet.sendPacket(RoboRally.channel);
+        }
+        if(isPressed(Keys.D)) {
+            ChatMessagePacket cmp = new ChatMessagePacket("Move east 1");
             Packet packet = new Packet(ToServer.CHAT_MESSAGE.ordinal(), cmp);
             packet.sendPacket(RoboRally.channel);
         }
