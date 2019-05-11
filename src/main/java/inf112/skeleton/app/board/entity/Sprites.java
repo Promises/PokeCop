@@ -13,12 +13,24 @@ public class Sprites {
     public static TextureAtlas[] textureAtlases;
     public static Animation[][] robotAnimations;
     public static Animation[] animation_flag;
+
     @SuppressWarnings("unchecked")
-    public static void setup(){
+    public static void setup() {
 
 
         FileHandle fileList = Gdx.files.internal("graphics/sprites/humans/filelist.txt");
-        String files[] = fileList.readString().split("\\n");
+
+        String os = System.getProperty("os.name");
+        String files[];
+        if (os.startsWith("Windows")) {
+            files = fileList.readString().split("\r\n");
+
+        } else {
+            files = fileList.readString().split("\\n");
+
+        }
+
+
         textureAtlases = new TextureAtlas[files.length];
         robotAnimations = new Animation[files.length][4];
         for (int i = 0; i < files.length; i++) {
@@ -30,7 +42,6 @@ public class Sprites {
             robotAnimations[i][Direction.EAST.ordinal()] = new Animation(0.2f, textureAtlases[i].findRegions("trainer_East"), Animation.PlayMode.LOOP);
             robotAnimations[i][Direction.WEST.ordinal()] = new Animation(0.2f, textureAtlases[i].findRegions("trainer_West"), Animation.PlayMode.LOOP);
         }
-
 
 
     }
